@@ -1,0 +1,1 @@
+export const froggyGatewayUrl = 'https://froggyfriends.mypinata.cloud/ipfs';
