@@ -16,9 +16,9 @@ export class AppService {
 
   async getFrog(frogId: number): Promise<Metadata> {
     const frog = await this.frogService.findOne(frogId);
-    const attributes = this.getFrogAttributes(frog);
     const ribbit = this.getFrogRibbit(frog);
     const rarity = this.getFrogRarity(frog.edition);
+    const attributes = this.getFrogAttributes(frog, ribbit, rarity);
     let metadata: Metadata = {
       name: frog.name,
       description: frog.description,
@@ -34,7 +34,7 @@ export class AppService {
     return metadata;
   }
 
-  getFrogAttributes(frog: Frog): Attribute[] {
+  getFrogAttributes(frog: Frog, ribbit: number, rarity: string): Attribute[] {
     let attributes: Attribute[] = [];
     if (frog.isOneOfOne) {
       attributes.push({ trait_type: '1 of 1', value: frog.oneOfOne });
@@ -46,8 +46,6 @@ export class AppService {
       attributes.push({ trait_type: "Shirt", value: frog.shirt });
       attributes.push({ trait_type: "Hat", value: frog.hat });
     }
-    let rarity = this.getFrogRarity(frog.edition);
-    let ribbit = this.getFrogRibbit(frog);
     attributes.push({ trait_type: 'Rarity', value: rarity});
     attributes.push({ trait_type: 'Ribbit Per Day', value: ribbit});
     attributes.push({ trait_type: 'Paired', value: frog.isPaired ? 'Yes' : 'No'});
