@@ -24,8 +24,6 @@ export class AppService {
       date: frog.date,
       attributes: attributes
     };
-
-    
     return metadata;
   }
 
@@ -45,7 +43,7 @@ export class AppService {
     let ribbit = this.getFrogRibbit(frog);
     attributes.push({ trait_type: 'Rarity', value: rarity});
     attributes.push({ trait_type: 'Ribbit Per Day', value: ribbit});
-    attributes.push({ trait_type: 'Is Paired', value: frog.isPaired ? 'Yes' : 'No'});
+    attributes.push({ trait_type: 'Paired', value: frog.isPaired ? 'Yes' : 'No'});
     if (frog.isPaired) {
       attributes.push({ trait_type: 'Friend', value: frog.friendName });
     }
