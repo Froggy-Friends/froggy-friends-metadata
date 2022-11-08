@@ -17,6 +17,8 @@ export class AppService {
   async getFrog(frogId: number): Promise<Metadata> {
     const frog = await this.frogService.findOne(frogId);
     const attributes = this.getFrogAttributes(frog);
+    const ribbit = this.getFrogRibbit(frog);
+    const rarity = this.getFrogRarity(frog.edition);
     let metadata: Metadata = {
       name: frog.name,
       description: frog.description,
@@ -25,6 +27,8 @@ export class AppService {
       imagePixel: `${this.froggyGatewayUrl}/${frog.cidPixel}`,
       edition: frog.edition,
       date: frog.date,
+      ribbit: ribbit,
+      rarity: rarity,
       attributes: attributes
     };
     return metadata;
