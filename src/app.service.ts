@@ -1,15 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { froggyGatewayUrl } from './app.constants';
 import { Frog } from './frog/frog.entity';
 import { FrogService } from './frog/frog.service';
 import { Attribute } from './models/Attribute';
 import { Metadata } from './models/Metadata';
 import * as rarity from './data/rarity.json';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AppService {
+  private froggyGatewayUrl: string;
 
-  constructor(private readonly frogService: FrogService) {}
+  constructor(private readonly frogService: FrogService, private readonly config: ConfigService) {
+    this.froggyGatewayUrl = config.get<string>('IPFS_URL');
+  }
 
   async getFrog(frogId: number): Promise<Metadata> {
     const frog = await this.frogService.findOne(frogId);
@@ -17,9 +20,9 @@ export class AppService {
     let metadata: Metadata = {
       name: frog.name,
       description: frog.description,
-      image: `${froggyGatewayUrl}/${frog.cid2d}`,
-      image3d: `${froggyGatewayUrl}/${frog.cid3d}`,
-      imagePixel: `${froggyGatewayUrl}/${frog.cidPixel}`,
+      image: `${this.froggyGatewayUrl}/${frog.cid2d}`,
+      image3d: `${this.froggyGatewayUrl}/${frog.cid3d}`,
+      imagePixel: `${this.froggyGatewayUrl}/${frog.cidPixel}`,
       edition: frog.edition,
       date: frog.date,
       attributes: attributes
