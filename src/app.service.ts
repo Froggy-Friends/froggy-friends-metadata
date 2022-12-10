@@ -9,9 +9,11 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class AppService {
   private froggyGatewayUrl: string;
+  private animationUrl: string;
 
   constructor(private readonly frogService: FrogService, private readonly config: ConfigService) {
     this.froggyGatewayUrl = config.get<string>('IPFS_URL');
+    this.animationUrl = config.get<string>('ANIMATION_URL');
   }
 
   async getFrog(frogId: number): Promise<Metadata> {
@@ -25,6 +27,7 @@ export class AppService {
       image: `${this.froggyGatewayUrl}/${frog.cid2d}`,
       image3d: `${this.froggyGatewayUrl}/${frog.cid3d}`,
       imagePixel: `${this.froggyGatewayUrl}/${frog.cidPixel}`,
+      animation_url: `${this.animationUrl}/${frog.edition}`,
       edition: frog.edition,
       date: frog.date,
       ribbit: ribbit,
