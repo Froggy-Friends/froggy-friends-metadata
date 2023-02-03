@@ -6,6 +6,8 @@ import { AppService } from './app.service';
 import { Frog } from './frog/frog.entity';
 import { FrogModule } from './frog/frog.module';
 import { FrogService } from './frog/frog.service';
+import { Item } from './item/item.entity';
+import { ItemModule } from './item/item.module';
 
 @Module({
   imports: [
@@ -20,11 +22,12 @@ import { FrogService } from './frog/frog.service';
         password: configService.get<string>('DB_PASSWORD'),
         database: 'postgres',
         schema: configService.get<string>('DB_SCHEMA'),
-        entities: [Frog]
+        entities: [Frog, Item]
       }),
       inject: [ConfigService]
     }),
-    FrogModule
+    FrogModule,
+    ItemModule
   ],
   controllers: [AppController],
   providers: [AppService, FrogService],

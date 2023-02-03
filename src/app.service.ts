@@ -3,35 +3,52 @@ import { Frog } from './frog/frog.entity';
 import { FrogService } from './frog/frog.service';
 import { Attribute } from './models/Attribute';
 import { Metadata } from './models/Metadata';
-import * as rarity from './data/rarity.json';
 import { ConfigService } from '@nestjs/config';
+import { Item } from './item/item.entity';
+import { ItemService } from './item/item.service';
+import { ItemMetadata } from './item/item.metadata';
 
 @Injectable()
 export class AppService {
   private froggyGatewayUrl: string;
-  private animationUrl: string;
 
-  constructor(private readonly frogService: FrogService, private readonly config: ConfigService) {
-    this.froggyGatewayUrl = config.get<string>('IPFS_URL');
-    this.animationUrl = config.get<string>('ANIMATION_URL');
+  constructor(
+    private readonly frogService: FrogService,
+    private readonly itemService: ItemService,
+    private readonly config: ConfigService
+  ) {
+    this.froggyGatewayUrl = this.config.get<string>('IPFS_URL');
   }
 
   async getFrog(frogId: number): Promise<Metadata> {
     const frog = await this.frogService.findOne(frogId);
-    const ribbit = this.getFrogRibbit(frog);
-    const rarity = this.getFrogRarity(frog.edition);
-    const attributes = this.getFrogAttributes(frog, ribbit, rarity);
+    if (frog.isPaired && frog.friendBoost) {
+      frog.ribbit = frog.friendBoost / 100 * frog.ribbit + frog.ribbit;
+    }
+    const attributes = this.getFrogAttributes(frog, frog.ribbit, frog.rarity);
     let metadata: Metadata = {
       name: frog.name,
       description: frog.description,
       image: `${this.froggyGatewayUrl}/${frog.cid2d}`,
       image3d: `${this.froggyGatewayUrl}/${frog.cid3d}`,
       imagePixel: `${this.froggyGatewayUrl}/${frog.cidPixel}`,
-      animation_url: `${this.animationUrl}/${frog.cid2d}/${frog.cid3d}/${frog.cidPixel}`,
       edition: frog.edition,
       date: frog.date,
-      ribbit: ribbit,
-      rarity: rarity,
+      ribbit: frog.ribbit,
+      rarity: frog.rarity,
+      attributes: attributes
+    };
+    return metadata;
+  }
+
+  async getItem(itemId: number): Promise<ItemMetadata> {
+    const item = await this.itemService.getItem(itemId);
+    const attributes = this.getItemAttributes(item);
+
+    let metadata: ItemMetadata = {
+      name: item.name,
+      description: item.description,
+      image: item.image,
       attributes: attributes
     };
     return metadata;
@@ -58,39 +75,27 @@ export class AppService {
     return attributes;
   }
 
-  getFrogRarity(frogId: number): string {
-    if (rarity.common.includes(frogId)) {
-      return "Common";
-    } else if (rarity.uncommon.includes(frogId)) {
-      return "Uncommon";
-    } else if (rarity.rare.includes(frogId)) {
-      return "Rare";
-    } else if (rarity.legendary.includes(frogId)) {
-      return "Legendary";
-    } else if (rarity.epic.includes(frogId)) {
-      return "Epic";
-    } else {
-      return "Common";
-    }
-  }
+  getItemAttributes(item: Item): Attribute[] {
+    let attributes: Attribute[] = [];
 
-  getFrogRibbit(frog: Frog): number {
-    let ribbit = 20;
-    if (rarity.common.includes(frog.edition)) {
-      ribbit = 20;
-    } else if (rarity.uncommon.includes(frog.edition)) {
-      ribbit = 30;
-    } else if (rarity.rare.includes(frog.edition)) {
-      ribbit = 40;
-    } else if (rarity.legendary.includes(frog.edition)) {
-      ribbit = 75;
-    } else if (rarity.epic.includes(frog.edition)) {
-      ribbit = 150;
+    attributes.push({ trait_type: 'Trait', value: item.isTrait ? 'Yes' : 'No'});
+
+    if (item.isTrait) {
+      attributes.push({ trait_type: 'Trait Name', value: item.name});
+      attributes.push({ trait_type: 'Trait Category', value: item.traitLayer});
     }
 
-    if (frog.isPaired && frog.friendBoost) {
-      ribbit = frog.friendBoost / 100 * ribbit + ribbit;
+    if (item.isBoost) {
+      attributes.push({ trait_type: 'Friend Origin', value: item.isFriend ? 'Genesis' : 'Collab'});
+      attributes.push({ trait_type: 'Ribbit Boost', value: item.percent, display_type: "boost_percentage" });
+      attributes.push({ trait_type: 'Boost', value: item.isBoost ? 'Yes' : 'No'});
     }
-    return ribbit;
+    attributes.push({ trait_type: 'Rarity', value: item.rarity});
+    attributes.push({ trait_type: 'Category', value: item.category});
+    attributes.push({ trait_type: 'Physical', value: item.isPhysical ? 'Yes' : 'No'});
+    attributes.push({ trait_type: 'Allowlist', value: item.isAllowlist ? 'Yes' : 'No'});
+    attributes.push({ trait_type: 'Merch', value: item.isPhysical ? 'Yes' : 'No'});
+
+    return attributes;
   }
 }
