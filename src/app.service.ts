@@ -22,11 +22,10 @@ export class AppService {
 
   async getFrog(frogId: number): Promise<Metadata> {
     const frog = await this.frogService.findOne(frogId);
-    const { ribbit } = frog;
     if (frog.isPaired && frog.friendBoost) {
       frog.ribbit = frog.friendBoost / 100 * frog.ribbit + frog.ribbit;
     }
-    const attributes = this.getFrogAttributes(frog, ribbit, frog.rarity);
+    const attributes = this.getFrogAttributes(frog, frog.ribbit, frog.rarity);
     let metadata: Metadata = {
       name: frog.name,
       description: frog.description,
