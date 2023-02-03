@@ -3,7 +3,6 @@ import { Frog } from './frog/frog.entity';
 import { FrogService } from './frog/frog.service';
 import { Attribute } from './models/Attribute';
 import { Metadata } from './models/Metadata';
-import * as rarity from './data/rarity.json';
 import { ConfigService } from '@nestjs/config';
 import { Item } from './item/item.entity';
 import { ItemService } from './item/item.service';
@@ -96,6 +95,7 @@ export class AppService {
     attributes.push({ trait_type: 'Category', value: item.category});
     attributes.push({ trait_type: 'Physical', value: item.isPhysical ? 'Yes' : 'No'});
     attributes.push({ trait_type: 'Allowlist', value: item.isAllowlist ? 'Yes' : 'No'});
+    attributes.push({ trait_type: 'Merch', value: item.isPhysical ? 'Yes' : 'No'});
 
     return attributes;
   }
