@@ -72,6 +72,7 @@ export class AppService {
     if (frog.isPaired) {
       attributes.push({ trait_type: 'Friend', value: frog.friendName });
     }
+    attributes.push({ trait_type: 'Upgraded', value: frog.isUpgraded ? 'Yes' : 'No'});
     return attributes;
   }
 
