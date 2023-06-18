@@ -6,6 +6,7 @@ export interface Metadata {
   image: string;
   image3d: string;
   imagePixel: string;
+  animation_url: string;
   edition: number;
   date: string;
   ribbit: number;
