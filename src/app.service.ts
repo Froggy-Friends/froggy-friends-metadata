@@ -32,7 +32,7 @@ export class AppService {
       image: `${this.froggyGatewayUrl}/${frog.cid2d}`,
       image3d: `${this.froggyGatewayUrl}/${frog.cid3d}`,
       imagePixel: `${this.froggyGatewayUrl}/${frog.cidPixel}`,
-      animation_url: `https://animation.froggyfriendsnft.com/${frog.edition}`,
+      animation_url: `https://switcher.froggyfriendsnft.com/frogs/${frog.edition}`,
       edition: frog.edition,
       date: frog.date,
       ribbit: frog.ribbit,
