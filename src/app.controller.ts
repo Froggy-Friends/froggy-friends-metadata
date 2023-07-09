@@ -13,6 +13,15 @@ export class AppController {
     return this.appService.getFrog(frogId);
   }
 
+  @Get('/frogfather/:id')
+  getFrogfather() {
+    return {
+      name: 'The Frogfather',
+      description: "You'll pay me royalties now - The Frogfather",
+      image: "https://froggyfriends.mypinata.cloud/ipfs/QmPzNuiczLzrPfhAHGeFTNoasjTGKAa53D9xemJPyTK3jc"
+    }
+  }
+
   @Get('/item/contract')
   getItemsContractMetadata(): ItemsContractMetadata {
     return {
