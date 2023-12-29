@@ -7,6 +7,12 @@ import { ConfigService } from '@nestjs/config';
 import { Item } from './item/item.entity';
 import { ItemService } from './item/item.service';
 import { ItemMetadata } from './item/item.metadata';
+import { Asset } from './models/Asset';
+import { MetadataStandard } from './models/MetadataStandard';
+import { MetadataExtensions } from './models/MetadataExtensions';
+import { AssetType } from './models/AssetType';
+import { MediaType } from './models/MediaType';
+import { MimeType } from './models/MimeType';
 
 @Injectable()
 export class AppService {
@@ -25,10 +31,11 @@ export class AppService {
   async getFrog(frogId: number): Promise<Metadata> {
     const frog = await this.frogService.findOne(frogId);
     if (frog.isPaired && frog.friendBoost) {
-      frog.ribbit = frog.friendBoost / 100 * frog.ribbit + frog.ribbit;
+      frog.ribbit = (frog.friendBoost / 100) * frog.ribbit + frog.ribbit;
     }
     const attributes = this.getFrogAttributes(frog, frog.ribbit, frog.rarity);
-    let metadata: Metadata = {
+    const assets = this.getAssets();
+    const metadata: Metadata = {
       name: frog.name,
       description: frog.description,
       image: `${this.froggyGatewayUrl}/${frog.cid2d}`,
@@ -39,9 +46,57 @@ export class AppService {
       date: frog.date,
       ribbit: frog.ribbit,
       rarity: frog.rarity,
-      attributes: attributes
+      attributes: attributes,
+      assets: assets,
+      metadata_standard: MetadataStandard.etmV1,
+      extensions: [
+        MetadataExtensions.etmMultiAssetV1,
+        MetadataExtensions.etmMultiAttributesV1,
+      ],
     };
     return metadata;
+  }
+
+  getAssets() {
+    const assets: Asset[] = [
+      {
+        asset_type: AssetType.avatar,
+        media_type: MediaType.model,
+        files: [
+          {
+            name: 'Fonzy',
+            description: 'A rigged model of Fonzy',
+            url: '',
+            file_type: MimeType.modelFbx,
+          },
+          {
+            name: 'Ollie',
+            description: 'A rigged model of Ollie',
+            url: '',
+            file_type: MimeType.modelFbx,
+          },
+          {
+            name: 'Cole',
+            description: 'A rigged model of Cole',
+            url: '',
+            file_type: MimeType.modelFbx,
+          },
+          {
+            name: 'Will',
+            description: 'A rigged model of Will',
+            url: '',
+            file_type: MimeType.modelFbx,
+          },
+          {
+            name: 'Yummy',
+            description: 'A rigged model of Yummy',
+            url: '',
+            file_type: MimeType.modelFbx,
+          },
+        ],
+      },
+    ];
+    return assets;
   }
 
   async getItem(itemId: number): Promise<ItemMetadata> {
@@ -69,36 +124,36 @@ export class AppService {
       attributes.push({ trait_type: "Shirt", value: frog.shirt });
       attributes.push({ trait_type: "Hat", value: frog.hat });
     }
-    attributes.push({ trait_type: 'Rarity', value: rarity});
-    attributes.push({ trait_type: 'Ribbit Per Day', value: ribbit});
-    attributes.push({ trait_type: 'Paired', value: frog.isPaired ? 'Yes' : 'No'});
+    attributes.push({ trait_type: 'Rarity', value: rarity });
+    attributes.push({ trait_type: 'Ribbit Per Day', value: ribbit });
+    attributes.push({ trait_type: 'Paired', value: frog.isPaired ? 'Yes' : 'No' });
     if (frog.isPaired) {
       attributes.push({ trait_type: 'Friend', value: frog.friendName });
     }
-    attributes.push({ trait_type: 'Upgraded', value: frog.isUpgraded ? 'Yes' : 'No'});
+    attributes.push({ trait_type: 'Upgraded', value: frog.isUpgraded ? 'Yes' : 'No' });
     return attributes;
   }
 
   getItemAttributes(item: Item): Attribute[] {
     let attributes: Attribute[] = [];
 
-    attributes.push({ trait_type: 'Trait', value: item.isTrait ? 'Yes' : 'No'});
+    attributes.push({ trait_type: 'Trait', value: item.isTrait ? 'Yes' : 'No' });
 
     if (item.isTrait) {
-      attributes.push({ trait_type: 'Trait Name', value: item.name});
-      attributes.push({ trait_type: 'Trait Category', value: item.traitLayer});
+      attributes.push({ trait_type: 'Trait Name', value: item.name });
+      attributes.push({ trait_type: 'Trait Category', value: item.traitLayer });
     }
 
     if (item.isBoost) {
-      attributes.push({ trait_type: 'Friend Origin', value: item.isFriend ? 'Genesis' : 'Collab'});
+      attributes.push({ trait_type: 'Friend Origin', value: item.isFriend ? 'Genesis' : 'Collab' });
       attributes.push({ trait_type: 'Ribbit Boost', value: item.percent, display_type: "boost_percentage" });
-      attributes.push({ trait_type: 'Boost', value: item.isBoost ? 'Yes' : 'No'});
+      attributes.push({ trait_type: 'Boost', value: item.isBoost ? 'Yes' : 'No' });
     }
-    attributes.push({ trait_type: 'Rarity', value: item.rarity});
-    attributes.push({ trait_type: 'Category', value: item.category});
-    attributes.push({ trait_type: 'Physical', value: item.isPhysical ? 'Yes' : 'No'});
-    attributes.push({ trait_type: 'Allowlist', value: item.isAllowlist ? 'Yes' : 'No'});
-    attributes.push({ trait_type: 'Merch', value: item.isPhysical ? 'Yes' : 'No'});
+    attributes.push({ trait_type: 'Rarity', value: item.rarity });
+    attributes.push({ trait_type: 'Category', value: item.category });
+    attributes.push({ trait_type: 'Physical', value: item.isPhysical ? 'Yes' : 'No' });
+    attributes.push({ trait_type: 'Allowlist', value: item.isAllowlist ? 'Yes' : 'No' });
+    attributes.push({ trait_type: 'Merch', value: item.isPhysical ? 'Yes' : 'No' });
 
     return attributes;
   }
