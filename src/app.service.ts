@@ -66,31 +66,55 @@ export class AppService {
           {
             name: 'Fonzy',
             description: 'A rigged model of Fonzy',
-            url: '',
+            url: 'https://nifty-island-models.s3.us-west-1.amazonaws.com/rigs/Frog.fbx',
             file_type: MimeType.modelFbx,
           },
+        ],
+      },
+      {
+        asset_type: AssetType.avatar,
+        media_type: MediaType.model,
+        files: [
           {
             name: 'Ollie',
             description: 'A rigged model of Ollie',
-            url: '',
+            url: 'https://nifty-island-models.s3.us-west-1.amazonaws.com/rigs/Frog.fbx',
             file_type: MimeType.modelFbx,
           },
+        ],
+      },
+      {
+        asset_type: AssetType.avatar,
+        media_type: MediaType.model,
+        files: [
           {
             name: 'Cole',
             description: 'A rigged model of Cole',
-            url: '',
+            url: 'https://nifty-island-models.s3.us-west-1.amazonaws.com/rigs/Frog.fbx',
             file_type: MimeType.modelFbx,
           },
+        ],
+      },
+      {
+        asset_type: AssetType.avatar,
+        media_type: MediaType.model,
+        files: [
           {
             name: 'Will',
             description: 'A rigged model of Will',
-            url: '',
+            url: 'https://nifty-island-models.s3.us-west-1.amazonaws.com/rigs/Frog.fbx',
             file_type: MimeType.modelFbx,
           },
+        ],
+      },
+      {
+        asset_type: AssetType.avatar,
+        media_type: MediaType.model,
+        files: [
           {
             name: 'Yummy',
             description: 'A rigged model of Yummy',
-            url: '',
+            url: 'https://nifty-island-models.s3.us-west-1.amazonaws.com/rigs/Frog.fbx',
             file_type: MimeType.modelFbx,
           },
         ],
