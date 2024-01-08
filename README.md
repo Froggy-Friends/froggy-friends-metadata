@@ -26,6 +26,8 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+Froggy Friends Metadata service provides metadata for each froggy friend NFT token.
+
 ## Installation
 
 ```bash
