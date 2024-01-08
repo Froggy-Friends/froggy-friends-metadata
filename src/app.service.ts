@@ -18,6 +18,7 @@ import { MimeType } from './models/MimeType';
 export class AppService {
   private froggyGatewayUrl: string;
   private animationUrl: string;
+  private modelsUrl: string;
 
   constructor(
     private readonly frogService: FrogService,
@@ -26,6 +27,7 @@ export class AppService {
   ) {
     this.froggyGatewayUrl = this.config.get<string>('IPFS_URL');
     this.animationUrl = this.config.get<string>('ANIMATION_URL');
+    this.modelsUrl = this.config.get<string>('MODELS_URL');
   }
 
   async getFrog(frogId: number): Promise<Metadata> {
@@ -65,7 +67,7 @@ export class AppService {
           {
             name: 'Fonzy',
             description: 'Play as Fonzy in Nifty Island.',
-            url: this.config.get('FONZY_MODEL_URL'),
+            url: `${this.modelsUrl}/Fonzy.fbx`,
             file_type: MimeType.modelFbx,
           },
         ],
@@ -77,7 +79,7 @@ export class AppService {
           {
             name: 'Ollie',
             description: 'Play as Ollie in Nifty Island.',
-            url: this.config.get('OLLIE_MODEL_URL'),
+            url: `${this.modelsUrl}/Ollie.fbx`,
             file_type: MimeType.modelFbx,
           },
         ],
@@ -89,7 +91,7 @@ export class AppService {
           {
             name: 'Cole',
             description: 'Play as Cole in Nifty Island.',
-            url: this.config.get('COLE_MODEL_URL'),
+            url: `${this.modelsUrl}/Cole.fbx`,
             file_type: MimeType.modelFbx,
           },
         ],
@@ -101,7 +103,7 @@ export class AppService {
           {
             name: 'Will',
             description: 'Play as Will in Nifty Island.',
-            url: this.config.get('WILL_MODEL_URL'),
+            url: `${this.modelsUrl}/Will.fbx`,
             file_type: MimeType.modelFbx,
           },
         ],
