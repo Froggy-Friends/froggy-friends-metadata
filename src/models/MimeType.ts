@@ -1,0 +1,17 @@
+export enum MimeType {
+  applicationOctetStream = 'application/octet-stream',
+  applicationPdf = 'application/pdf',
+  applicationZip = 'application/zip',
+  audioMpeg = 'audio/mpeg',
+  fontWoff = 'font/woff',
+  fontTtf = 'font/ttf',
+  fontOtf = 'font/otf',
+  imageJpeg = 'image/jpeg',
+  imagePng = 'image/png',
+  imageSvgXml = 'image/svg+xml',
+  modelFbx = 'model/fbx',
+  textPlain = 'text/plain',
+  textCsv = 'text/csv',
+  textHtml = 'text/html',
+  videoMp4 = 'video/mp4',
+}
