@@ -17,7 +17,6 @@ import { MimeType } from './models/MimeType';
 @Injectable()
 export class AppService {
   private froggyGatewayUrl: string;
-  private animationUrl: string;
   private modelsUrl: string;
 
   constructor(
@@ -26,7 +25,6 @@ export class AppService {
     private readonly config: ConfigService,
   ) {
     this.froggyGatewayUrl = this.config.get<string>('IPFS_URL');
-    this.animationUrl = this.config.get<string>('ANIMATION_URL');
     this.modelsUrl = this.config.get<string>('MODELS_URL');
   }
 
