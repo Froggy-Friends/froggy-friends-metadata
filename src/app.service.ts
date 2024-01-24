@@ -64,9 +64,9 @@ export class AppService {
         files: [
           {
             name: 'Fonzy',
-            description: 'Play as Fonzy in Nifty Island.',
-            url: `${this.modelsUrl}/Fonzy.fbx`,
-            file_type: MimeType.modelFbx,
+            description: 'Play as Fonzy on Nifty Island.',
+            url: `${this.modelsUrl}/Fonzy.glb`,
+            file_type: MimeType.modelGlb,
           },
         ],
       },
@@ -76,9 +76,9 @@ export class AppService {
         files: [
           {
             name: 'Ollie',
-            description: 'Play as Ollie in Nifty Island.',
-            url: `${this.modelsUrl}/Ollie.fbx`,
-            file_type: MimeType.modelFbx,
+            description: 'Play as Ollie on Nifty Island.',
+            url: `${this.modelsUrl}/Ollie.glb`,
+            file_type: MimeType.modelGlb,
           },
         ],
       },
@@ -88,9 +88,9 @@ export class AppService {
         files: [
           {
             name: 'Cole',
-            description: 'Play as Cole in Nifty Island.',
-            url: `${this.modelsUrl}/Cole.fbx`,
-            file_type: MimeType.modelFbx,
+            description: 'Play as Cole on Nifty Island.',
+            url: `${this.modelsUrl}/Cole.glb`,
+            file_type: MimeType.modelGlb,
           },
         ],
       },
@@ -100,9 +100,9 @@ export class AppService {
         files: [
           {
             name: 'Will',
-            description: 'Play as Will in Nifty Island.',
-            url: `${this.modelsUrl}/Will.fbx`,
-            file_type: MimeType.modelFbx,
+            description: 'Play as Will on Nifty Island.',
+            url: `${this.modelsUrl}/Will.glb`,
+            file_type: MimeType.modelGlb,
           },
         ],
       },
