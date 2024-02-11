@@ -12,7 +12,7 @@ export interface Metadata {
   animation_url?: string;
   edition: number;
   date: string;
-  ribbit: number;
+  ribbit?: number;
   rarity: string;
   attributes: Attribute[];
   assets: Asset[];

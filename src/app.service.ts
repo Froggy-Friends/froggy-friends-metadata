@@ -30,9 +30,6 @@ export class AppService {
 
   async getFrog(frogId: number): Promise<Metadata> {
     const frog = await this.frogService.findOne(frogId);
-    if (frog.isPaired && frog.friendBoost) {
-      frog.ribbit = (frog.friendBoost / 100) * frog.ribbit + frog.ribbit;
-    }
     const attributes = this.getFrogAttributes(frog, frog.ribbit, frog.rarity);
     const assets = this.getAssets();
     const metadata: Metadata = {
@@ -43,7 +40,6 @@ export class AppService {
       imagePixel: `${this.froggyGatewayUrl}/${frog.cidPixel}`,
       edition: frog.edition,
       date: frog.date,
-      ribbit: frog.ribbit,
       rarity: frog.rarity,
       attributes: attributes,
       assets: assets,
@@ -136,7 +132,6 @@ export class AppService {
       attributes.push({ trait_type: "Hat", value: frog.hat });
     }
     attributes.push({ trait_type: 'Rarity', value: rarity });
-    attributes.push({ trait_type: 'Ribbit Per Day', value: ribbit });
     attributes.push({ trait_type: 'Paired', value: frog.isPaired ? 'Yes' : 'No' });
     if (frog.isPaired) {
       attributes.push({ trait_type: 'Friend', value: frog.friendName });
