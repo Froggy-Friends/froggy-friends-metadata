@@ -14,7 +14,7 @@ export class AppController {
     return this.appService.getFrog(frogId);
   }
 
-  @Get('/frogfather/:id')
+  @Get('/migrated/:id')
   getFrogfather() {
     return {
       name: 'Froggy Friends Has Migrated',
