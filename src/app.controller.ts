@@ -47,8 +47,7 @@ export class AppController {
     return {
       name: 'Tadpole Evolution',
       description: 'The official ERC404 Collection of Froggy Friends',
-      image:
-        'https://froggyfriends.mypinata.cloud/ipfs/QmeBxxoSkC5QfJvzAggv1rruPXiMj3bCnQQ84AD7hpgcF6',
+      image: 'https://froggyfriends.mypinata.cloud/ipfs/QmWqdzCvPYyifzoPYiwehm1gkGLiYVFzWDYz9o3n7nLHMG',
       attributes: [],
     };
   }
