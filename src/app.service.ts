@@ -64,26 +64,7 @@ export class AppService {
 
   async getFrog(frogId: number): Promise<Metadata> {
     const frog = await this.frogService.findOne(frogId);
-    const attributes = this.getFrogAttributes(frog, frog.ribbit, frog.rarity);
-    const assets = this.getAssets();
-    const metadata: Metadata = {
-      name: frog.name,
-      description: frog.description,
-      image: `${this.froggyGatewayUrl}/${frog.cid2d}`,
-      image3d: `${this.froggyGatewayUrl}/${frog.cid3d}`,
-      imagePixel: `${this.froggyGatewayUrl}/${frog.cidPixel}`,
-      edition: frog.edition,
-      date: frog.date,
-      rarity: frog.rarity,
-      attributes: attributes,
-      assets: assets,
-      metadata_standard: MetadataStandard.etmV1,
-      extensions: [
-        MetadataExtensions.etmMultiAssetV1,
-        MetadataExtensions.etmMultiAttributesV1,
-      ],
-    };
-    return metadata;
+    return this.frogToMetadata(frog);
   }
 
   private getAssets() {
