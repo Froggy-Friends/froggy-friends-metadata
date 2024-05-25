@@ -1,13 +1,14 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { Frog } from "./frog.entity";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Frog } from './frog.entity';
 
 @Injectable()
 export class FrogService {
-  
-  constructor(@InjectRepository(Frog) private frogRepo: Repository<Frog>) {
+  constructor(@InjectRepository(Frog) private frogRepo: Repository<Frog>) {}
 
+  findAll(): Promise<Frog[]> {
+    return this.frogRepo.find();
   }
 
   findOne(edition: number): Promise<Frog> {
@@ -17,6 +18,4 @@ export class FrogService {
   async saveFrog(frog: Frog): Promise<Frog> {
     return await this.frogRepo.save(frog);
   }
-
-  
 }

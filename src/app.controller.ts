@@ -5,9 +5,15 @@ import { ItemsContractMetadata } from './models/ItemsContractMetadata';
 import { Metadata } from './models/Metadata';
 import { TadpoleMetadata } from './models/TadpoleMetadata';
 
+export enum Chain {
+  Ethereum,
+  Blast,
+  Base,
+}
+
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(private readonly appService: AppService) {}
 
   @Get('/:id')
   getFrog(@Param('id') frogId: number): Promise<Metadata> {
@@ -18,7 +24,8 @@ export class AppController {
   getFrogfather() {
     return {
       name: 'Froggy Friends Has Migrated',
-      description: "Froggy Friends has migrated, see froggyfriends.io for official links",
+      description:
+        'Froggy Friends has migrated, see froggyfriends.io for official links',
       image:
         'https://froggyfriends.mypinata.cloud/ipfs/QmTPi3ERitz7ksRP9A7cF5Ydxf27YL46H4hahLzvmtaPR9',
     };
@@ -47,8 +54,14 @@ export class AppController {
     return {
       name: 'Tadpoles',
       description: 'The official ERC404 Collection of Froggy Friends',
-      image: 'https://froggyfriends.mypinata.cloud/ipfs/QmWqdzCvPYyifzoPYiwehm1gkGLiYVFzWDYz9o3n7nLHMG',
+      image:
+        'https://froggyfriends.mypinata.cloud/ipfs/QmWqdzCvPYyifzoPYiwehm1gkGLiYVFzWDYz9o3n7nLHMG',
       attributes: [],
     };
+  }
+
+  @Get('/eth/frogs')
+  getEthMetadata(): Promise<Metadata[]> {
+    return this.appService.getAllFrogs(Chain.Ethereum);
   }
 }
