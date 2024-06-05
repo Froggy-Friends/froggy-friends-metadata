@@ -34,7 +34,15 @@ export class AppService {
 
     if (chain === Chain.Ethereum) {
       const frogs = await this.frogService.findAll();
-      metadata = frogs.map((frog) => this.frogToMetadata(frog));
+      metadata = frogs.map((frog) => {
+          const attributes = this.getFrogAttributes(frog, frog.ribbit, frog.rarity);
+          return {
+              name: frog.name,
+              image: `${this.froggyGatewayUrl}/${frog.cid2d}`,
+              edition: frog.edition,
+              attributes: attributes,
+          };
+      });
     }
 
     return metadata;
