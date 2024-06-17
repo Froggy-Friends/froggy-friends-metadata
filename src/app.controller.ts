@@ -27,7 +27,7 @@ export class AppController {
 
   @Get('/blast/frog/:id')
   getBlastFrog(@Param('id') frogId: number): Promise<Metadata> {
-    return this.appService.getFrog(frogId);
+    return this.appService.getPixelFrog(frogId);
   }
 
   @Get('/migrated/:id')

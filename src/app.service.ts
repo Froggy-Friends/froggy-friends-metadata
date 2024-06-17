@@ -48,6 +48,11 @@ export class AppService {
     return metadata;
   }
 
+  async getPixelFrog(frogId: number): Promise<Metadata> {
+    const frog = await this.frogService.findOne(frogId)
+    return this.frogToMetadata(frog)
+  }
+
   private frogToMetadata(frog: Frog): Metadata {
     const attributes = this.getFrogAttributes(frog, frog.ribbit, frog.rarity);
     const assets = this.getAssets();
