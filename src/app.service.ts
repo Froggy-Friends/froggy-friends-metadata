@@ -70,6 +70,26 @@ export class AppService {
     };
   }
 
+  private frogToPixelMetadata(frog: Frog): Metadata {
+    const attributes = this.getFrogAttributes(frog, frog.ribbit, frog.rarity);
+    const assets = this.getAssets();
+    return {
+      name: frog.name,
+      description: frog.description,
+      image: `${this.froggyGatewayUrl}/${frog.cidPixel}`,
+      edition: frog.edition,
+      date: frog.date,
+      rarity: frog.rarity,
+      attributes: attributes,
+      assets: assets,
+    };
+  }
+
+  async getPixelFrog(frogId: number): Promise<Metadata> {
+    const frog = await this.frogService.findOne(frogId)
+    return this.frogToPixelMetadata(frog)
+  }
+
   async getFrog(frogId: number): Promise<Metadata> {
     const frog = await this.frogService.findOne(frogId);
     return this.frogToMetadata(frog);
