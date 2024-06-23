@@ -3,7 +3,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { BaseFrog } from "./base.entity";
 import { BaseController } from "./base.controller";
 import { BaseService } from "./base.service";
-import { MetadataModule } from "src/metadata/metadata.module";
+import { MetadataModule } from "../metadata/metadata.module";
 
 @Module({
   imports: [

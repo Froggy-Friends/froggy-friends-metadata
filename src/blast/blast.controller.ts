@@ -1,5 +1,5 @@
 import { BadRequestException, Controller, Get, Param } from "@nestjs/common";
-import { Metadata } from "src/models/Metadata";
+import { Metadata } from "../models/Metadata";
 import { BlastService } from "./blast.service";
 
 @Controller('blast')

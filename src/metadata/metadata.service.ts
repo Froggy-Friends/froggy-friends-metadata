@@ -1,17 +1,17 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { BaseFrog } from "src/base/base.entity";
-import { BlastFrog } from "src/blast/blast.entity";
-import { Frog } from "src/frog/frog.entity";
-import { Item } from "src/item/item.entity";
-import { Asset } from "src/models/Asset";
-import { AssetType } from "src/models/AssetType";
-import { Attribute } from "src/models/Attribute";
-import { MediaType } from "src/models/MediaType";
-import { Metadata } from "src/models/Metadata";
-import { MetadataExtensions } from "src/models/MetadataExtensions";
-import { MetadataStandard } from "src/models/MetadataStandard";
-import { MimeType } from "src/models/MimeType";
+import { BaseFrog } from "../base/base.entity";
+import { BlastFrog } from "../blast/blast.entity";
+import { Frog } from "../frog/frog.entity";
+import { Item } from "../item/item.entity";
+import { Asset } from "../models/Asset";
+import { AssetType } from "../models/AssetType";
+import { Attribute } from "../models/Attribute";
+import { MediaType } from "../models/MediaType";
+import { Metadata } from "../models/Metadata";
+import { MetadataExtensions } from "../models/MetadataExtensions";
+import { MetadataStandard } from "../models/MetadataStandard";
+import { MimeType } from "../models/MimeType";
 
 @Injectable()
 export class MetadataService {

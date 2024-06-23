@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from "@nestjs/common";
-import { Metadata } from "src/models/Metadata";
+import { Metadata } from "../models/Metadata";
 import { FrogService } from "./frog.service";
 
 @Controller('frog')
