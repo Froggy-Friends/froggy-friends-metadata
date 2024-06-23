@@ -1,5 +1,5 @@
 import { Controller, Get } from "@nestjs/common";
-import { TadpoleMetadata } from "src/models/TadpoleMetadata";
+import { TadpoleMetadata } from "../models/TadpoleMetadata";
 
 
 @Controller('tadpole')

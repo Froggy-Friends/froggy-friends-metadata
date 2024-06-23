@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Item } from "./item.entity";
-import { MetadataService } from "src/metadata/metadata.service";
+import { MetadataService } from "../metadata/metadata.service";
 import { Item as ItemMetadata } from "../models/Item";
 
 @Injectable()

@@ -1,10 +1,10 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { MetadataService } from "src/metadata/metadata.service";
-import { Metadata } from "src/models/Metadata";
+import { MetadataService } from "../metadata/metadata.service";
+import { Metadata } from "../models/Metadata";
 import { Repository } from "typeorm";
 import { BlastFrog } from "./blast.entity";
-import { Frog } from "src/frog/frog.entity";
+import { Frog } from "../frog/frog.entity";
 
 @Injectable()
 export class BlastService {

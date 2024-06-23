@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from "@nestjs/common";
-import { ItemsContractMetadata } from "src/models/ItemsContractMetadata";
+import { ItemsContractMetadata } from "../models/ItemsContractMetadata";
 import { Item } from "../models/Item";
 import { ItemService } from "./item.service";
 
