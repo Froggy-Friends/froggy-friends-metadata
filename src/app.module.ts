@@ -8,6 +8,10 @@ import { FrogModule } from './frog/frog.module';
 import { FrogService } from './frog/frog.service';
 import { Item } from './item/item.entity';
 import { ItemModule } from './item/item.module';
+import { BaseFrog } from './base/base.entity';
+import { BaseFrogModule } from './base/base.module';
+import { MetadataModule } from './metadata/metadata.module';
+import { MetadataService } from './metadata/metadata.service';
 
 @Module({
   imports: [
@@ -22,14 +26,16 @@ import { ItemModule } from './item/item.module';
         password: configService.get<string>('DB_PASSWORD'),
         database: 'postgres',
         schema: configService.get<string>('DB_SCHEMA'),
-        entities: [Frog, Item]
+        entities: [Frog, Item, BaseFrog]
       }),
       inject: [ConfigService]
     }),
+    MetadataModule,
     FrogModule,
-    ItemModule
+    ItemModule,
+    BaseFrogModule,
   ],
   controllers: [AppController],
-  providers: [AppService, FrogService],
+  providers: [AppService, MetadataService, FrogService],
 })
 export class AppModule {}

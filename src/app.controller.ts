@@ -20,11 +20,6 @@ export class AppController {
     return this.appService.getFrog(frogId);
   }
 
-  @Get('/base/frog/:id')
-  getBaseFrog(@Param('id') frogId: number): Promise<Metadata> {
-    return this.appService.getFrog(frogId);
-  }
-
   @Get('/blast/frog/:id')
   getBlastFrog(@Param('id') frogId: number): Promise<Metadata> {
     return this.appService.getPixelFrog(frogId);
