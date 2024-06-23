@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { BaseFrog } from "src/base/base.entity";
+import { BlastFrog } from "src/blast/blast.entity";
 import { Frog } from "src/frog/frog.entity";
 import { Item } from "src/item/item.entity";
 import { Asset } from "src/models/Asset";
@@ -62,15 +63,20 @@ export class MetadataService {
     };
   }
 
-  frogToPixelMetadata(frog: Frog): Metadata {
-    const attributes = this.getFrogAttributes(frog, frog.ribbit, frog.rarity);
+  blastFrogToMetadata(frog: BlastFrog): Metadata {
+    const attributes: Attribute[] = [
+      { trait_type: 'Background', value: frog.background },
+      { trait_type: 'Body', value: frog.body },
+      { trait_type: 'Eyes', value: frog.eyes },
+      { trait_type: 'Mouth', value: frog.mouth },
+      { trait_type: 'Shirt', value: frog.shirt },
+      { trait_type: 'Hat', value: frog.hat },
+    ];
     return {
       name: frog.name,
       description: frog.description,
-      image: `${this.froggyGatewayUrl}/${frog.cidPixel}`,
       edition: frog.edition,
-      date: frog.date,
-      rarity: frog.rarity,
+      image: frog.image,
       attributes: attributes
     };
   }

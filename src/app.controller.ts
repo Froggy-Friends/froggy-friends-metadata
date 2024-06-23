@@ -1,21 +1,8 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { AppService } from './app.service';
-import { Metadata } from './models/Metadata';
-
-export enum Chain {
-  Ethereum,
-  Blast,
-  Base,
-}
+import { Controller, Get } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get('/blast/frog/:id')
-  getBlastFrog(@Param('id') frogId: number): Promise<Metadata> {
-    return this.appService.getPixelFrog(frogId);
-  }
+  constructor() {}
 
   @Get('/migrated/:id')
   getFrogfather() {

@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Frog } from './frog.entity';
-import { Chain } from 'src/app.controller';
 import { MetadataService } from 'src/metadata/metadata.service';
 import { Metadata } from 'src/models/Metadata';
 
@@ -30,13 +29,8 @@ export class FrogService {
     return this.metadataService.frogToMetadata(frog);
   }
 
-  async getAllFrogs(chain: Chain): Promise<any[]> {
-    let metadata = [];
-
-    if (chain === Chain.Ethereum) {
-      const frogs = await this.findAll();
-      metadata = frogs.map((frog) => this.metadataService.frogToSimpleMetadata(frog));
-    }
-    return metadata;
+  async getAllFrogs(): Promise<any[]> {
+    const frogs = await this.findAll();
+    return frogs.map((frog) => this.metadataService.frogToSimpleMetadata(frog));
   }
 }
