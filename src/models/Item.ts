@@ -1,6 +1,6 @@
 import { Attribute } from "src/models/Attribute";
 
-export interface ItemMetadata {
+export interface Item {
   name: string;
   description: string;
   image: string;
