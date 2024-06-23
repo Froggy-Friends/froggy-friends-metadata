@@ -1,4 +1,4 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Param } from "@nestjs/common";
 import { Chain } from "src/app.controller";
 import { Metadata } from "src/models/Metadata";
 import { FrogService } from "./frog.service";
@@ -11,5 +11,10 @@ export class FrogController {
   @Get('/all')
   getEthMetadata(): Promise<Metadata[]> {
     return this.frogService.getAllFrogs(Chain.Ethereum);
+  }
+
+  @Get('/:id')
+  getFrog(@Param('id') frogId: number): Promise<Metadata> {
+    return this.frogService.getFrog(frogId);
   }
 }

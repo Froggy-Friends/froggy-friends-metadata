@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Frog } from './frog.entity';
 import { Chain } from 'src/app.controller';
 import { MetadataService } from 'src/metadata/metadata.service';
+import { Metadata } from 'src/models/Metadata';
 
 @Injectable()
 export class FrogService {
@@ -22,6 +23,11 @@ export class FrogService {
 
   async saveFrog(frog: Frog): Promise<Frog> {
     return await this.frogRepo.save(frog);
+  }
+
+  async getFrog(frogId: number): Promise<Metadata> {
+    const frog = await this.findOne(frogId);
+    return this.metadataService.frogToMetadata(frog);
   }
 
   async getAllFrogs(chain: Chain): Promise<any[]> {

@@ -14,11 +14,6 @@ export enum Chain {
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('/:id')
-  getFrog(@Param('id') frogId: number): Promise<Metadata> {
-    return this.appService.getFrog(frogId);
-  }
-
   @Get('/blast/frog/:id')
   getBlastFrog(@Param('id') frogId: number): Promise<Metadata> {
     return this.appService.getPixelFrog(frogId);

@@ -3,7 +3,6 @@ import { FrogService } from './frog/frog.service';
 import { Metadata } from './models/Metadata';
 import { ItemService } from './item/item.service';
 import { ItemMetadata } from './item/item.metadata';
-import { Chain } from './app.controller';
 import { MetadataService } from './metadata/metadata.service';
 
 @Injectable()
@@ -18,11 +17,6 @@ export class AppService {
   async getPixelFrog(frogId: number): Promise<Metadata> {
     const frog = await this.frogService.findOne(frogId)
     return this.metadataService.frogToPixelMetadata(frog)
-  }
-
-  async getFrog(frogId: number): Promise<Metadata> {
-    const frog = await this.frogService.findOne(frogId);
-    return this.metadataService.frogToMetadata(frog);
   }
 
   async getItem(itemId: number): Promise<ItemMetadata> {
