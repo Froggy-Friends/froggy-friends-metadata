@@ -1,54 +1,47 @@
-import { Injectable } from '@nestjs/common';
-import { Frog } from './frog/frog.entity';
-import { FrogService } from './frog/frog.service';
-import { Attribute } from './models/Attribute';
-import { Metadata } from './models/Metadata';
-import { ConfigService } from '@nestjs/config';
-import { Item } from './item/item.entity';
-import { ItemService } from './item/item.service';
-import { ItemMetadata } from './item/item.metadata';
-import { Asset } from './models/Asset';
-import { MetadataStandard } from './models/MetadataStandard';
-import { MetadataExtensions } from './models/MetadataExtensions';
-import { AssetType } from './models/AssetType';
-import { MediaType } from './models/MediaType';
-import { MimeType } from './models/MimeType';
-import { Chain } from './app.controller';
+import { Injectable } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { BaseFrog } from "src/base/base.entity";
+import { BlastFrog } from "src/blast/blast.entity";
+import { Frog } from "src/frog/frog.entity";
+import { Item } from "src/item/item.entity";
+import { Asset } from "src/models/Asset";
+import { AssetType } from "src/models/AssetType";
+import { Attribute } from "src/models/Attribute";
+import { MediaType } from "src/models/MediaType";
+import { Metadata } from "src/models/Metadata";
+import { MetadataExtensions } from "src/models/MetadataExtensions";
+import { MetadataStandard } from "src/models/MetadataStandard";
+import { MimeType } from "src/models/MimeType";
 
 @Injectable()
-export class AppService {
+export class MetadataService {
   private froggyGatewayUrl: string;
   private modelsUrl: string;
 
-  constructor(
-    private readonly frogService: FrogService,
-    private readonly itemService: ItemService,
-    private readonly config: ConfigService,
-  ) {
+  constructor(private readonly config: ConfigService) {
     this.froggyGatewayUrl = this.config.get<string>('IPFS_URL');
     this.modelsUrl = this.config.get<string>('MODELS_URL');
   }
 
-  async getAllFrogs(chain: Chain): Promise<Metadata[]> {
-    let metadata: Metadata[] = [];
-
-    if (chain === Chain.Ethereum) {
-      const frogs = await this.frogService.findAll();
-      metadata = frogs.map((frog) => {
-          const attributes = this.getFrogAttributes(frog, frog.ribbit, frog.rarity);
-          return {
-              name: frog.name,
-              image: `${this.froggyGatewayUrl}/${frog.cid2d}`,
-              edition: frog.edition,
-              attributes: attributes,
-          };
-      });
-    }
-
-    return metadata;
+  baseFrogToMetadata(frog: BaseFrog): Metadata {
+    const attributes: Attribute[] = [
+      { trait_type: 'Background', value: frog.background },
+      { trait_type: 'Body', value: frog.body },
+      { trait_type: 'Eyes', value: frog.eyes },
+      { trait_type: 'Mouth', value: frog.mouth },
+      { trait_type: 'Shirt', value: frog.shirt },
+      { trait_type: 'Hat', value: frog.hat },
+    ];
+    return {
+      name: frog.name,
+      description: frog.description,
+      edition: frog.edition,
+      image: frog.image,
+      attributes: attributes
+    };
   }
 
-  private frogToMetadata(frog: Frog): Metadata {
+  frogToMetadata(frog: Frog): Metadata {
     const attributes = this.getFrogAttributes(frog, frog.ribbit, frog.rarity);
     const assets = this.getAssets();
     return {
@@ -70,29 +63,32 @@ export class AppService {
     };
   }
 
-  private frogToPixelMetadata(frog: Frog): Metadata {
-    const attributes = this.getFrogAttributes(frog, frog.ribbit, frog.rarity);
-    const assets = this.getAssets();
+  blastFrogToMetadata(frog: BlastFrog): Metadata {
+    const attributes: Attribute[] = [
+      { trait_type: 'Background', value: frog.background },
+      { trait_type: 'Body', value: frog.body },
+      { trait_type: 'Eyes', value: frog.eyes },
+      { trait_type: 'Mouth', value: frog.mouth },
+      { trait_type: 'Shirt', value: frog.shirt },
+      { trait_type: 'Hat', value: frog.hat },
+    ];
     return {
       name: frog.name,
       description: frog.description,
-      image: `${this.froggyGatewayUrl}/${frog.cidPixel}`,
       edition: frog.edition,
-      date: frog.date,
-      rarity: frog.rarity,
-      attributes: attributes,
-      assets: assets,
+      image: frog.image,
+      attributes: attributes
     };
   }
 
-  async getPixelFrog(frogId: number): Promise<Metadata> {
-    const frog = await this.frogService.findOne(frogId)
-    return this.frogToPixelMetadata(frog)
-  }
-
-  async getFrog(frogId: number): Promise<Metadata> {
-    const frog = await this.frogService.findOne(frogId);
-    return this.frogToMetadata(frog);
+  frogToSimpleMetadata(frog: Frog) {
+    const attributes = this.getFrogAttributes(frog, frog.ribbit, frog.rarity);
+    return {
+        name: frog.name,
+        image: `${this.froggyGatewayUrl}/${frog.cid2d}`,
+        edition: frog.edition,
+        attributes: attributes,
+    };
   }
 
   private getAssets() {
@@ -147,19 +143,6 @@ export class AppService {
       },
     ];
     return assets;
-  }
-
-  async getItem(itemId: number): Promise<ItemMetadata> {
-    const item = await this.itemService.getItem(itemId);
-    const attributes = this.getItemAttributes(item);
-
-    const metadata: ItemMetadata = {
-      name: item.name,
-      description: item.description,
-      image: item.image,
-      attributes: attributes,
-    };
-    return metadata;
   }
 
   getFrogAttributes(frog: Frog, ribbit: number, rarity: string): Attribute[] {
