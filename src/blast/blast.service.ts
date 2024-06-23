@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { MetadataService } from "src/metadata/metadata.service";
 import { Metadata } from "src/models/Metadata";
@@ -17,6 +17,7 @@ export class BlastService {
 
   async getPixelFrog(frogId: number): Promise<Metadata> {
     const frog = await this.blastFrogRepo.findOneBy({ edition: frogId });
+    if (!frog) throw new BadRequestException('Invalid frog ID');
     return this.metadataService.blastFrogToMetadata(frog);
   }
 }

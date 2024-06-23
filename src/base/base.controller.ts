@@ -9,7 +9,7 @@ export class BaseController {
 
   @Get('/frog/:id')
   getBaseFrog(@Param('id') frogId: number): Promise<Metadata> {
-    if (frogId < 0 || frogId >= 4444) {
+    if (frogId < 0 || frogId > 4443) {
       throw new BadRequestException('Token ID out of range');
     }
     return this.baseService.getFrog(frogId);
