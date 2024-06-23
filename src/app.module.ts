@@ -12,6 +12,7 @@ import { BaseFrog } from './base/base.entity';
 import { BaseFrogModule } from './base/base.module';
 import { MetadataModule } from './metadata/metadata.module';
 import { MetadataService } from './metadata/metadata.service';
+import { TadpoleModule } from './tadpole/tadpole.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { MetadataService } from './metadata/metadata.service';
     FrogModule,
     ItemModule,
     BaseFrogModule,
+    TadpoleModule
   ],
   controllers: [AppController],
   providers: [AppService, MetadataService, FrogService],

@@ -3,7 +3,6 @@ import { AppService } from './app.service';
 import { ItemMetadata } from './item/item.metadata';
 import { ItemsContractMetadata } from './models/ItemsContractMetadata';
 import { Metadata } from './models/Metadata';
-import { TadpoleMetadata } from './models/TadpoleMetadata';
 
 export enum Chain {
   Ethereum,
@@ -52,21 +51,5 @@ export class AppController {
   @Get('/item/:id')
   getItem(@Param('id') itemId: number): Promise<ItemMetadata> {
     return this.appService.getItem(itemId);
-  }
-
-  @Get('/tadpole/:id')
-  getTadpole(): TadpoleMetadata {
-    return {
-      name: 'Tadpoles',
-      description: 'The official ERC404 Collection of Froggy Friends',
-      image:
-        'https://froggyfriends.mypinata.cloud/ipfs/QmWqdzCvPYyifzoPYiwehm1gkGLiYVFzWDYz9o3n7nLHMG',
-      attributes: [],
-    };
-  }
-
-  @Get('/eth/frogs')
-  getEthMetadata(): Promise<Metadata[]> {
-    return this.appService.getAllFrogs(Chain.Ethereum);
   }
 }

@@ -15,16 +15,6 @@ export class AppService {
     private readonly metadataService: MetadataService
   ) {}
 
-  async getAllFrogs(chain: Chain): Promise<any[]> {
-    let metadata = [];
-
-    if (chain === Chain.Ethereum) {
-      const frogs = await this.frogService.findAll();
-      metadata = frogs.map((frog) => this.metadataService.frogToSimpleMetadata(frog));
-    }
-    return metadata;
-  }
-
   async getPixelFrog(frogId: number): Promise<Metadata> {
     const frog = await this.frogService.findOne(frogId)
     return this.metadataService.frogToPixelMetadata(frog)
