@@ -1,17 +1,17 @@
-import { Injectable } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
-import { BaseFrog } from "../base/base.entity";
-import { BlastFrog } from "../blast/blast.entity";
-import { Frog } from "../frog/frog.entity";
-import { Item } from "../item/item.entity";
-import { Asset } from "../models/Asset";
-import { AssetType } from "../models/AssetType";
-import { Attribute } from "../models/Attribute";
-import { MediaType } from "../models/MediaType";
-import { Metadata } from "../models/Metadata";
-import { MetadataExtensions } from "../models/MetadataExtensions";
-import { MetadataStandard } from "../models/MetadataStandard";
-import { MimeType } from "../models/MimeType";
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { BaseFrog } from '../base/base.entity';
+import { BlastFrog } from '../blast/blast.entity';
+import { Frog } from '../frog/frog.entity';
+import { Item } from '../item/item.entity';
+import { Asset } from '../models/Asset';
+import { AssetType } from '../models/AssetType';
+import { Attribute } from '../models/Attribute';
+import { MediaType } from '../models/MediaType';
+import { Metadata } from '../models/Metadata';
+import { MetadataExtensions } from '../models/MetadataExtensions';
+import { MetadataStandard } from '../models/MetadataStandard';
+import { MimeType } from '../models/MimeType';
 
 @Injectable()
 export class MetadataService {
@@ -37,7 +37,7 @@ export class MetadataService {
       description: frog.description,
       edition: frog.edition,
       image: frog.image,
-      attributes: attributes
+      attributes: attributes,
     };
   }
 
@@ -77,17 +77,17 @@ export class MetadataService {
       description: frog.description,
       edition: frog.edition,
       image: frog.image,
-      attributes: attributes
+      attributes: attributes,
     };
   }
 
   frogToSimpleMetadata(frog: Frog) {
     const attributes = this.getFrogAttributes(frog, frog.ribbit, frog.rarity);
     return {
-        name: frog.name,
-        image: `${this.froggyGatewayUrl}/${frog.cid2d}`,
-        edition: frog.edition,
-        attributes: attributes,
+      name: frog.name,
+      image: `${this.froggyGatewayUrl}/${frog.cid2d}`,
+      edition: frog.edition,
+      attributes: attributes,
     };
   }
 

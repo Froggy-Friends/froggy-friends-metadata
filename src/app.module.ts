@@ -15,27 +15,28 @@ import { BlastFrog } from './blast/blast.entity';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(), 
+    ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        type: "postgres",
+        type: 'postgres',
         host: configService.get<string>('DB_HOST'),
         port: 5432,
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
-        database: 'postgres',
+        database: 'verceldb',
         schema: configService.get<string>('DB_SCHEMA'),
-        entities: [Frog, Item, BaseFrog, BlastFrog]
+        entities: [Frog, Item, BaseFrog, BlastFrog],
+        ssl: true,
       }),
-      inject: [ConfigService]
+      inject: [ConfigService],
     }),
     MetadataModule,
     FrogModule,
     ItemModule,
     BaseFrogModule,
     BlastFrogModule,
-    TadpoleModule
+    TadpoleModule,
   ],
   controllers: [AppController],
   providers: [],
