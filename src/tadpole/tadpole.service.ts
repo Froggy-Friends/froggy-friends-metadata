@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Tadpole } from './tadpole.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Attribute } from 'src/models/Attribute';
+import { TadpoleMetadata } from 'src/models/TadpoleMetadata';
 
 @Injectable()
 export class TadpoleService {
@@ -31,5 +33,30 @@ export class TadpoleService {
 
   async findTadpole(tokenId: number) {
     return await this.tadpoleRepo.findOne({ where: { tokenId }});
+  }
+
+  tadpoleToMetadata(tadpole: Tadpole) {
+    const attributes: Attribute[] = [];
+    attributes.push({ trait_type: 'Background', value: tadpole.background });
+    attributes.push({ trait_type: 'Skin', value: tadpole.skin });
+    attributes.push({ trait_type: 'Face', value: tadpole.face });
+    
+    if (tadpole.clothing) {
+      attributes.push({ trait_type: 'Clothing', value: tadpole.clothing });
+    }
+    if (tadpole.hat) {
+      attributes.push({ trait_type: 'Hat', value: tadpole.hat });
+    }
+    if (tadpole.accessories) {
+      attributes.push({ trait_type: 'Accessories', value: tadpole.accessories });
+    }
+
+    const metadata: TadpoleMetadata = {
+      name: tadpole.name,
+      description: tadpole.description,
+      image: tadpole.imageUrl,
+      attributes,
+    };
+    return metadata;
   }
 }
