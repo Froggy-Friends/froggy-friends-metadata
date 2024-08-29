@@ -12,6 +12,7 @@ import { MetadataModule } from './metadata/metadata.module';
 import { TadpoleModule } from './tadpole/tadpole.module';
 import { BlastFrogModule } from './blast/blast.module';
 import { BlastFrog } from './blast/blast.entity';
+import { Tadpole } from './tadpole/tadpole.entity';
 
 @Module({
   imports: [
@@ -21,13 +22,13 @@ import { BlastFrog } from './blast/blast.entity';
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         host: configService.get<string>('DB_HOST'),
-        port: 5432,
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
-        database: 'verceldb',
         schema: configService.get<string>('DB_SCHEMA'),
-        entities: [Frog, Item, BaseFrog, BlastFrog],
+        database: 'verceldb',
+        port: 5432,
         ssl: true,
+        entities: [Frog, Item, BaseFrog, BlastFrog, Tadpole],
       }),
       inject: [ConfigService],
     }),
