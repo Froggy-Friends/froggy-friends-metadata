@@ -28,4 +28,8 @@ export class TadpoleService {
     const saved = await this.tadpoleRepo.save(tadpoleInstance);
     return saved;
   }
+
+  async findTadpole(tokenId: number) {
+    return await this.tadpoleRepo.findOne({ where: { tokenId }});
+  }
 }
