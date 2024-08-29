@@ -1,18 +1,14 @@
-import { Controller, Get } from "@nestjs/common";
-import { TadpoleMetadata } from "../models/TadpoleMetadata";
-
+import { Controller, Get, Param } from '@nestjs/common';
+import { TadpoleMetadata } from '../models/TadpoleMetadata';
+import { TadpoleService } from './tadpole.service';
 
 @Controller('tadpole')
 export class TadpoleController {
+  constructor(private readonly tadpoleService: TadpoleService) {}
 
   @Get('/:id')
-  getTadpole(): TadpoleMetadata {
-    return {
-      name: 'Tadpoles',
-      description: 'The official ERC404 Collection of Froggy Friends',
-      image:
-        'https://froggyfriends.mypinata.cloud/ipfs/QmWqdzCvPYyifzoPYiwehm1gkGLiYVFzWDYz9o3n7nLHMG',
-      attributes: [],
-    };
+  async getTadpole(@Param('id') id: string): Promise<TadpoleMetadata> {
+    const tadpole = await this.tadpoleService.findTadpole(+id);
+    return this.tadpoleService.tadpoleToMetadata(tadpole);
   }
 }
