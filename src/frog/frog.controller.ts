@@ -76,6 +76,7 @@ export class FrogController {
 
     return {
       totalHolders: masterList.length,
+      totalTadpoles: masterList.reduce((sum, tad) => sum + tad.count, 0),
       tadpoles: masterList.sort((a, b) => b.count - a.count),
     };
   }
