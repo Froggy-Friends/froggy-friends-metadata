@@ -32,7 +32,7 @@ export class TadpoleService {
   }
 
   async findTadpole(tokenId: number) {
-    return await this.tadpoleRepo.findOne({ where: { tokenId }});
+    return await this.tadpoleRepo.findOne({ where: { tokenId } });
   }
 
   tadpoleToMetadata(tadpole: Tadpole) {
@@ -40,7 +40,7 @@ export class TadpoleService {
     attributes.push({ trait_type: 'Background', value: tadpole.background });
     attributes.push({ trait_type: 'Skin', value: tadpole.skin });
     attributes.push({ trait_type: 'Face', value: tadpole.face });
-    
+
     if (tadpole.clothing) {
       attributes.push({ trait_type: 'Clothing', value: tadpole.clothing });
     }
@@ -48,7 +48,10 @@ export class TadpoleService {
       attributes.push({ trait_type: 'Hat', value: tadpole.hat });
     }
     if (tadpole.accessories) {
-      attributes.push({ trait_type: 'Accessories', value: tadpole.accessories });
+      attributes.push({
+        trait_type: 'Accessories',
+        value: tadpole.accessories,
+      });
     }
 
     const metadata: TadpoleMetadata = {

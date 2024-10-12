@@ -1,4 +1,4 @@
-import { Attribute } from "../models/Attribute";
+import { Attribute } from '../models/Attribute';
 
 export interface Item {
   name: string;

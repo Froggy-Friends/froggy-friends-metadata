@@ -1,18 +1,16 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { MetadataService } from "../metadata/metadata.service";
-import { Metadata } from "../models/Metadata";
-import { Repository } from "typeorm";
-import { BlastFrog } from "./blast.entity";
-import { Frog } from "../frog/frog.entity";
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { MetadataService } from '../metadata/metadata.service';
+import { Metadata } from '../models/Metadata';
+import { Repository } from 'typeorm';
+import { BlastFrog } from './blast.entity';
 
 @Injectable()
 export class BlastService {
-
   constructor(
     @InjectRepository(BlastFrog) private blastFrogRepo: Repository<BlastFrog>,
 
-    private readonly metadataService: MetadataService
+    private readonly metadataService: MetadataService,
   ) {}
 
   async getPixelFrog(frogId: number): Promise<Metadata> {

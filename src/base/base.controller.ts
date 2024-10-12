@@ -1,10 +1,9 @@
-import { BadRequestException, Controller, Get, Param } from "@nestjs/common";
-import { BaseService } from "./base.service";
-import { Metadata } from "../models/Metadata";
+import { BadRequestException, Controller, Get, Param } from '@nestjs/common';
+import { BaseService } from './base.service';
+import { Metadata } from '../models/Metadata';
 
 @Controller('base')
 export class BaseController {
-
   constructor(private readonly baseService: BaseService) {}
 
   @Get('/frog/:id')

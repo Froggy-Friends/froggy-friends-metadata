@@ -1,6 +1,6 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@Entity({name: 'BaseFrog', synchronize: false})
+@Entity({ name: 'BaseFrog', synchronize: false })
 export class BaseFrog {
   @PrimaryColumn() edition: number;
   @Column() name: string;

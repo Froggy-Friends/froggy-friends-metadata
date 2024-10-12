@@ -1,16 +1,15 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { Item } from "./item.entity";
-import { MetadataService } from "../metadata/metadata.service";
-import { Item as ItemMetadata } from "../models/Item";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Item } from './item.entity';
+import { MetadataService } from '../metadata/metadata.service';
+import { Item as ItemMetadata } from '../models/Item';
 
 @Injectable()
 export class ItemService {
-
   constructor(
-    @InjectRepository(Item) private itemRepo: Repository<Item>, 
-    private metadataService: MetadataService
+    @InjectRepository(Item) private itemRepo: Repository<Item>,
+    private metadataService: MetadataService,
   ) {}
 
   async getItem(id: number): Promise<ItemMetadata> {

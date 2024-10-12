@@ -9,7 +9,7 @@ import { Metadata } from 'src/models/Metadata';
 export class FrogService {
   constructor(
     @InjectRepository(Frog) private frogRepo: Repository<Frog>,
-    private metadataService: MetadataService
+    private metadataService: MetadataService,
   ) {}
 
   findAll(): Promise<Frog[]> {
