@@ -11,6 +11,7 @@ export enum MimeType {
   imageSvgXml = 'image/svg+xml',
   modelFbx = 'model/fbx',
   modelGlb = 'model/glb',
+  modelVrm = 'model/vrm',
   textPlain = 'text/plain',
   textCsv = 'text/csv',
   textHtml = 'text/html',

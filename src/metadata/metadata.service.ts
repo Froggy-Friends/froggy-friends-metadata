@@ -16,11 +16,10 @@ import { MimeType } from '../models/MimeType';
 @Injectable()
 export class MetadataService {
   private froggyGatewayUrl: string;
-  private modelsUrl: string;
+  private modelsUrl = 'https://froggy-friends-vrms.s3.us-west-1.amazonaws.com';
 
   constructor(private readonly config: ConfigService) {
     this.froggyGatewayUrl = this.config.get<string>('IPFS_URL');
-    this.modelsUrl = this.config.get<string>('MODELS_URL');
   }
 
   baseFrogToMetadata(frog: BaseFrog): Metadata {
@@ -43,7 +42,7 @@ export class MetadataService {
 
   frogToMetadata(frog: Frog): Metadata {
     const attributes = this.getFrogAttributes(frog, frog.ribbit, frog.rarity);
-    const assets = this.getAssets();
+    const assets = this.getAssets(frog);
     return {
       name: frog.name,
       description: frog.description,
@@ -91,53 +90,17 @@ export class MetadataService {
     };
   }
 
-  private getAssets() {
+  private getAssets(frog: Frog) {
     const assets: Asset[] = [
       {
         asset_type: AssetType.avatar,
         media_type: MediaType.model,
         files: [
           {
-            name: 'Fonzy',
-            description: 'Play as Fonzy on Nifty Island.',
-            url: `${this.modelsUrl}/Fonzy.glb`,
-            file_type: MimeType.modelGlb,
-          },
-        ],
-      },
-      {
-        asset_type: AssetType.avatar,
-        media_type: MediaType.model,
-        files: [
-          {
-            name: 'Ollie',
-            description: 'Play as Ollie on Nifty Island.',
-            url: `${this.modelsUrl}/Ollie.glb`,
-            file_type: MimeType.modelGlb,
-          },
-        ],
-      },
-      {
-        asset_type: AssetType.avatar,
-        media_type: MediaType.model,
-        files: [
-          {
-            name: 'Cole',
-            description: 'Play as Cole on Nifty Island.',
-            url: `${this.modelsUrl}/Cole.glb`,
-            file_type: MimeType.modelGlb,
-          },
-        ],
-      },
-      {
-        asset_type: AssetType.avatar,
-        media_type: MediaType.model,
-        files: [
-          {
-            name: 'Will',
-            description: 'Play as Will on Nifty Island.',
-            url: `${this.modelsUrl}/Will.glb`,
-            file_type: MimeType.modelGlb,
+            name: `Froggy Friend #${frog.edition}`,
+            description: `Play as Froggy Friend #${frog.edition} on Nifty Island.`,
+            url: `${this.modelsUrl}/Froggy_Friend_${frog.edition}.vrm`,
+            file_type: MimeType.modelVrm,
           },
         ],
       },
